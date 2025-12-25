@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Feliz Navidad!</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #0a5d00 0%, #8b0000 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-family: 'Georgia', serif;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 2.5rem;
+            border-radius: 20px;
+            backdrop-filter: blur(12px);
+            border: 3px solid #ffd700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+            z-index: 10;
+            max-width: 85%;
+        }
+
+        h1 { 
+            font-size: 2.8rem; 
+            margin-bottom: 10px; 
+            color: #ffd700;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.6); 
+        }
+
+        .foto-amiga {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            border: 6px solid #fff;
+            outline: 3px solid #ffd700;
+            margin: 20px auto;
+            object-fit: cover;
+            display: none;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+            animation: aparecer 1.5s ease-out;
+        }
+
+        @keyframes aparecer {
+            from { opacity: 0; transform: scale(0.3) rotate(-20deg); }
+            to { opacity: 1; transform: scale(1) rotate(0deg); }
+        }
+
+        .btn-regalo {
+            background: #d42426;
+            border: 2px solid #ffd700;
+            padding: 18px 35px;
+            color: white;
+            font-size: 1.6rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            margin-top: 10px;
+        }
+
+        .btn-regalo:hover { 
+            transform: scale(1.1); 
+            background: #ff0000;
+            box-shadow: 0 0 20px #ffd700;
+        }
+
+        .mensaje-final {
+            display: none;
+            font-size: 1.3rem;
+            margin-top: 20px;
+            line-height: 1.6;
+        }
+
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            color: white;
+            user-select: none;
+            z-index: 1;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(105vh) rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+   <audio id="musicaNavidena" loop>
+    <source src="Navidad.mp3" type="audio/mpeg">
+    Tu navegador no soporta el audio.
+</audio>
+
+    <div class="container">
+        <h1>✨ ¡Feliz Navidad! ✨</h1>
+        <p id="instruccion" style="font-size: 1.4rem;">Tengo algo especial para ti...</p>
+        
+        <img src="Mela.jpg" id="foto" class="foto-amiga" alt="Foto de mi amiga">
+
+        <button id="boton" class="btn-regalo" onclick="abrirRegalo()">Abrir Regalo 🎁</button>
+        
+        <div id="mensaje" class="mensaje-final">
+            <span style="font-size: 1.8rem; color: #ffd700;">¡Te quiero mucho!</span><br>
+            "Eres una persona increíble y espero que esta <br>
+            Navidad esté llena de alegría para ti.<br>
+            ¡Gracias por tu amistad!" 🎄✨
+        </div>
+    </div>
+
+    <script>
+        function abrirRegalo() {
+            // Iniciar música
+            var audio = document.getElementById('musicaNavidena');
+            audio.play().catch(function(error) {
+                console.log("El navegador bloqueó el audio al inicio: ", error);
+            });
+
+            // Mostrar foto y mensaje
+            document.getElementById('foto').style.display = 'block';
+            document.getElementById('mensaje').style.display = 'block';
+            
+            // Ocultar botón e instrucción
+            document.getElementById('boton').style.display = 'none';
+            document.getElementById('instruccion').style.display = 'none';
+        }
+
+        function crearNieve() {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            snowflake.innerText = '❄';
+            snowflake.style.left = Math.random() * 100 + 'vw';
+            snowflake.style.animationDuration = Math.random() * 3 + 2 + 's';
+            snowflake.style.opacity = Math.random();
+            snowflake.style.fontSize = Math.random() * 15 + 10 + 'px';
+            document.body.appendChild(snowflake);
+            setTimeout(() => { snowflake.remove(); }, 5000);
+        }
+        setInterval(crearNieve, 80);
+    </script>
+</body>
+</html>
